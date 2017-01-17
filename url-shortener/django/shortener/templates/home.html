@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% block body %}
+ <br/>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{% trans 'Encurtador de URL' %}</h1>
+            <form action="/" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">
+                        {% trans 'Encurtar' %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
