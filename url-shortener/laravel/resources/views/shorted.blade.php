@@ -17,7 +17,7 @@
                     </a>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <a href="/" class="btn btn-primary">@lang('app.shortenAnother')</a>
+                    <a href="{{ route('home') }}" class="btn btn-primary">@lang('app.shortenAnother')</a>
                 </div>
             </div>
         </div>

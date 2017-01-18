@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/','Shortener\\URLController@home');
-Route::post('/','Shortener\\URLController@shorten');
+Route::get('/','Shortener\\URLController@home')->name('home');
+Route::post('/','Shortener\\URLController@shorten')->name('url-create');
 Route::get('/{code}','Shortener\\URLController@redirect')
-    ->where('code','[A-Za-z0-9]+');
+    ->where('code','[A-Za-z0-9]+')
+    ->name('url-redirect');
 Route::get('/preview/{code}','Shortener\\URLController@show')
-    ->where('code','[A-Za-z0-9]+');
+    ->where('code','[A-Za-z0-9]+')
+    ->name('url-preview');

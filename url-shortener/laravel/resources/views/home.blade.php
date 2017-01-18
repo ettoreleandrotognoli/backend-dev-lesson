@@ -5,7 +5,7 @@
     <div class="container">
         <div class="jumbotron">
             <h1>@lang('system.name')</h1>
-            <form action="/" method="POST">
+            <form action="{{ route('url-create') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group {{ $errors->has('url') ? 'has-error' : '' }}">
                     <label class="control-label" for="url">@lang('app.url'):</label>                    
