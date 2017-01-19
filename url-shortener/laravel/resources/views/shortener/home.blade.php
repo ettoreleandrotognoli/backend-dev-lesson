@@ -6,6 +6,11 @@
         <div class="jumbotron">
             <h1>@lang('system.name')</h1>
             <form action="{{ route('url-create') }}" method="POST">
+                @if( isset($errors) && count($errors) > 0 )
+                <div class="alert alert-danger">
+                    @lang('app.checkErros')
+                </div>
+                @endif
                 {{ csrf_field() }}
                 <div class="form-group {{ $errors->has('url') ? 'has-error' : '' }}">
                     <label class="control-label" for="url">@lang('app.url'):</label>                    

@@ -5,17 +5,23 @@ use App\ShortUrl;
 use Validator;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Controllers\Controller;
 
-class URLController extends BaseController{
+class URLController extends Controller{
+
+    protected $shortUrl;
+
+    public function __construct(ShortUrl $shortUrl){
+        $this->shortUrl = $shortUrl;
+    }
 
     public function home(){
-        return view('home');
+        return view('shortener.home');
     }
 
     public function show($code){
-        $shortUrl = ShortUrl::where('code','=',$code)->firstOrFail();
-        return view('shorted',[
+        $shortUrl = $this->shortUrl->where('code','=',$code)->firstOrFail();
+        return view('shortener.shorted',[
             'url'=>$shortUrl->url,
             'shortUrl'=>$shortUrl,
             'baseUrl' => config('app.url'),
@@ -23,17 +29,14 @@ class URLController extends BaseController{
     }
 
     public function shorten(Request $request){
-        $validator = Validator::make($request->all(),[
-            'url' => 'required'
-        ]);
-        $validator->validate();
+        $this->validate($request,$this->shortUrl->rules);
         $url = $request->input('url');
-        $shortUrl = ShortUrl::shorten($url);
-        return redirect('/preview/'.$shortUrl->code);
+        $shortUrl = $this->shortUrl->shorten($url);
+        return redirect()->route('url-preview',['code'=>$shortUrl->code]);
     }
 
     public function redirect($code){
-        $shortUrl = ShortUrl::where('code','=',$code)->firstOrFail();
+        $shortUrl = $this->shortUrl->where('code','=',$code)->firstOrFail();
         return redirect($shortUrl->getUrl());
     }
 

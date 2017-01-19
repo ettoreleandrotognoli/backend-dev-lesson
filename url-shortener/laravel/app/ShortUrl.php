@@ -8,8 +8,12 @@ class ShortUrl extends Model{
 
     protected $fillable = ['url'];
 
-    public static function shorten($url){
-        $shortUrl = ShortUrl::firstOrNew(['url'=>$url]);
+    public $rules = [
+        'url' => 'required'
+    ];
+
+    public function shorten($url){
+        $shortUrl = $this->firstOrNew(['url'=>$url]);
         if($shortUrl->id){
             return $shortUrl;
         }
@@ -19,7 +23,7 @@ class ShortUrl extends Model{
     }
 
     public function makeCode(){
-        $nextId = ShortUrl::with('id')->max('id') + 1;
+        $nextId = $this->with('id')->max('id') + 1;
         $this->code = base_convert($nextId,10,36);
     }
 
