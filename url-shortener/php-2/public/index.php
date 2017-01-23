@@ -5,7 +5,7 @@
     $routes = array(
         '@^/$@' => '../index.php',
         '@^/(?P<code>[^/]+)$@' => '../redirect.php',
-        '@^/preview/(?P<code>[^/]+)@' => '../preview.php',
+        '@^/preview/(?P<code>[^/]+)$@' => '../preview.php',
     );
 
     $path = $_SERVER['REQUEST_URI'];
