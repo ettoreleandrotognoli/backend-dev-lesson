@@ -1,0 +1,14 @@
+{
+    "name": "univem/project",
+    "type": "project",
+    "repositories": [
+        {
+            "type" : "path",
+            "url" : "../composer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "univem/pos-graduacao": "@dev"
+    }
+}
