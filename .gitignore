@@ -1,2 +1,4 @@
 **.class
 **.py[cod]
+composer.lock
+vendor/
