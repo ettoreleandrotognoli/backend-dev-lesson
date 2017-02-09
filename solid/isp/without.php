@@ -12,6 +12,58 @@ interface MessageSender {
 }
 
 
+class TelegramSender implements MessageSender{
+
+    public function emailSend($email,$message){
+        throw new Exception();
+    }
+
+    public function smsSend($phone,$message){
+        throw new Exception();
+    }
+
+    public function telegramSend($telegramId,$message){
+        echo shell_exec(sprintf('telegram-cli -RD -e "msg %s %s"',$telegramId,$message)."\n");
+    }    
+}
+
+class EMailSender implements MessageSender{
+    public function emailSend($email,$message){
+        mail($email,'PHP Mail',$message);
+    }
+
+    public function smsSend($phone,$message){
+        throw new Exception();
+    }
+
+    public function telegramSend($telegramId,$message){
+        throw new Exception();
+    }    
+}
+
+class SMSSender implements MessageSender{
+    public function emailSend($email,$message){
+        throw new Exception();
+    }
+
+    public function smsSend($phone,$message){
+        $ch = curl_init();
+        $tokenPublic = 'pos-univem';
+        $tokenSecret = 'ettoreleandrotognoli';
+        $url = 'https://smscommunity.herokuapp.com/sms/%s/?token_public=%s&token_secret=%s';
+        curl_setopt($ch, CURLOPT_URL, sprintf($url,$phone,$tokenPublic,$tokenSecret));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$message);
+        $serverOutput = curl_exec($ch);
+        curl_close ($ch);
+    }
+
+    public function telegramSend($telegramId,$message){
+        throw new Exception();
+    }    
+}
+
+
 class MyMessageSender implements MessageSender{
 
     public function emailSend($email,$message){
